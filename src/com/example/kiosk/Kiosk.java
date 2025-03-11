@@ -7,16 +7,17 @@ public class Kiosk {
     Menu menu = new Menu();
 
 // **키오스크 시작하기**
-   void InputStart (){
-       System.out.println("키오스크를 시작하려면 아무거나 입력");
-       String InputStart = scanner.nextLine();
+   void start (){
+       System.out.println("키오스크를 시작하려면 아무거나 입력하세요");
+       String startword = scanner.nextLine();
        System.out.println("키오스크를 시작합니다");
        wholeMenu(); //<-- 전체아이템 넣어주기
     }
 
-// **카테고리 선택- > 메뉴아이템 선택**
-    void select () {
-        menu.selectCategory();
+// **카테고리 선택- > 메뉴출력**
+    void selectCategory () {
+
+        menu.printCategory();
 
         int categoryNum = scanner.nextInt();
         scanner.nextLine();
@@ -31,10 +32,30 @@ public class Kiosk {
             case 3 :
                 menu.dessertMenu();
                 break;
+            case 0 :
+                System.exit(0);
+                break;
             default:
                 System.out.println("잘못된 숫자입니다");
         }
+
     }
+
+    void selectMenu () {
+        int menuNum = scanner.nextInt();
+        scanner.nextLine();
+        String selectedMenu = null;
+
+        for (MenuItem item : menu.getBurgerItems()) {
+            if (item.getMenuNum()==menuNum) {
+                selectedMenu += item.getName();
+            }break;
+        }
+        System.out.println("장바구니 : "+ selectedMenu);
+    }
+
+
+
 
     public void wholeMenu () {
         MenuItem shackBurger = new MenuItem(1,"ShackBurger", 6.9, "토마토, 양상추, 쉑소스가 토핑된 치즈버거");

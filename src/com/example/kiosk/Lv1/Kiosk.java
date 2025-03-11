@@ -24,6 +24,7 @@ public class Kiosk {
         for (Menuitem item : menuitem) {
             System.out.println(item.getName() + " | " + item.getPrice() + " | " + item.getDetail());
         }
+        System.out.print("종료는 0 | ");
         System.out.print("메뉴를 선택하세요 : ");
         int num = scanner.nextInt();
 
@@ -40,6 +41,11 @@ public class Kiosk {
             case 4:
                 System.out.println("선택한 버거 : HamBurger");
                 break;
+            case 0:
+                System.out.println("키오스크를 종료합니다.");
+                System.exit(0);
+            default:
+                System.out.println("잘못된 값을 입력했습니다.");
         }
     }
 }

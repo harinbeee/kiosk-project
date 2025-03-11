@@ -8,11 +8,7 @@ public class Main {
         kiosk.start();
 
         while(true) {
-            //2. 카테고리선택 -> 아이템 선택
-            kiosk.selectCategory();
-
-            //3. 음식 장바구니에 담기
-            kiosk.selectMenu();
+            kiosk.selectOrderItem();
         }
 
 

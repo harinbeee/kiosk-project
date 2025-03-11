@@ -3,7 +3,7 @@ package com.example.kiosk;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuItem extends Menu {
+public class MenuItem  {
 //    속성
     int menuNum;
     String name;
@@ -23,8 +23,8 @@ public class MenuItem extends Menu {
     public String getName() {
         return name;
     }
-    public double getPrice() {
-        return price;
+    public int getPrice() {
+        return (int)price*1000;
     }
     public String getDetail() {
         return detail;

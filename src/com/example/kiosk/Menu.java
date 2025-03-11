@@ -20,7 +20,6 @@ public class Menu {
         System.out.println("| 3 . DESSERT |");
         System.out.println("| 0 . 종료     |");
         System.out.println("메뉴를 선택해 주세요");
-
     }
 
     // 카테고리 별 메뉴 리스트 출력
@@ -45,7 +44,7 @@ public class Menu {
         }System.out.println("0 . 뒤로가기");
     }
 
-    // kiosk에서 리스트에 접근할 수 있도록 getter 메서드 구현
+    // kiosk 에서 리스트에 접근할 수 있도록 getter 메서드 구현
     public List<MenuItem> getBurgerItems() {
         return burgerItems;
     }
@@ -58,5 +57,32 @@ public class Menu {
         return dessertItems;
     }
 
+    public void wholeMenu () {
+        MenuItem shackBurger = new MenuItem(1,"ShackBurger", 6.9, "토마토, 양상추, 쉑소스가 토핑된 치즈버거");
+        MenuItem smokeBurger = new MenuItem(2,"SmokeBurger", 8.9, "베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거");
+        MenuItem cheeseBurger = new MenuItem(3,"CheeseBurger", 6.9, "포테이토 번과 비프패티, 치즈가 토핑된 치즈버거");
+        MenuItem hamBurger = new MenuItem(4,"HamBurger", 5.4, "비프패티를 기반으로 야채가 들어간 기본버거");
 
+        MenuItem coke =new MenuItem(1,"콜라", 1.0, "콜라입니다");
+        MenuItem cider =new MenuItem(2,"사이다", 1.0, "사이다입니다");
+        MenuItem coffee =new MenuItem(3,"아메리카노", 1.5, "커피입니다");
+
+        MenuItem potato =new MenuItem(1,"감튀", 3.0, "감튀입니다");
+        MenuItem stick = new MenuItem(2,"치즈스틱", 3.0, "치즈스틱입니다");
+        MenuItem iceCream =new MenuItem(3,"아이스크림", 3.0, "아이스크림입니다");
+
+        //카테고리별 리스트에 넣기
+        burgerItems.add(shackBurger);
+        burgerItems.add(smokeBurger);
+        burgerItems.add(cheeseBurger);
+        burgerItems.add(hamBurger);
+
+        drinkItems.add(coke);
+        drinkItems.add(cider);
+        drinkItems.add(coffee);
+
+        dessertItems.add(potato);
+        dessertItems.add(stick);
+        dessertItems.add(iceCream);
+    }
 }

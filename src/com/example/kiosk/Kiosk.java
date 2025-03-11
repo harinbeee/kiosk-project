@@ -7,14 +7,16 @@ import java.util.Scanner;
 public class Kiosk {
     Scanner scanner = new Scanner(System.in);
     Menu menu = new Menu();
-    List<String> cart = new ArrayList<>(); // 장바구니
+    List<String> cart = new ArrayList<>();
+    int totalPrice = 0;
+
 
 // **키오스크 시작하기**
    void start (){
        System.out.println("키오스크를 시작하려면 아무거나 입력하세요");
        scanner.nextLine();
        System.out.println("키오스크를 시작합니다");
-       wholeMenu(); //<-- 전체아이템 넣어주기
+       menu.wholeMenu(); //<-- 전체아이템 넣어주기
     }
 
 // **카테고리 선택- > 메뉴출력**
@@ -60,42 +62,25 @@ public class Kiosk {
            for (MenuItem item : itemList) {
                if (item.getMenuNum() == menuNum) {
                    cart.add(item.getName());
-                   System.out.println("장바구니 : " + cart);
+                   totalPrice += item.getPrice();
+                   System.out.println("장바구니 : " + cart + " | 현재 금액 : " + totalPrice);
                    break;
                }
            }
        }
     }
 
-
-
-    public void wholeMenu () {
-        MenuItem shackBurger = new MenuItem(1,"ShackBurger", 6.9, "토마토, 양상추, 쉑소스가 토핑된 치즈버거");
-        MenuItem smokeBurger = new MenuItem(2,"SmokeBurger", 8.9, "베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거");
-        MenuItem cheeseBurger = new MenuItem(3,"CheeseBurger", 6.9, "포테이토 번과 비프패티, 치즈가 토핑된 치즈버거");
-        MenuItem hamBurger = new MenuItem(4,"HamBurger", 5.4, "비프패티를 기반으로 야채가 들어간 기본버거");
-
-        MenuItem coke =new MenuItem(1,"콜라", 1.0, "콜라입니다");
-        MenuItem cider =new MenuItem(2,"사이다", 1.0, "사이다입니다");
-        MenuItem coffee =new MenuItem(3,"아메리카노", 1.5, "커피입니다");
-
-        MenuItem potato =new MenuItem(1,"감튀", 3.0, "감튀입니다");
-        MenuItem stick = new MenuItem(2,"치즈스틱", 3.0, "치즈스틱입니다");
-        MenuItem iceCream =new MenuItem(3,"아이스크림", 3.0, "아이스크림입니다");
-
-        menu.burgerItems.add(shackBurger);
-        menu.burgerItems.add(smokeBurger);
-        menu.burgerItems.add(cheeseBurger);
-        menu.burgerItems.add(hamBurger);
-
-        menu.drinkItems.add(coke);
-        menu.drinkItems.add(cider);
-        menu.drinkItems.add(coffee);
-
-        menu.dessertItems.add(potato);
-        menu.dessertItems.add(stick);
-        menu.dessertItems.add(iceCream);
-    }
+////     장바구니 결제 메서드
+//    void order (List<String> cart){
+//       if(cart.isEmpty()) {
+//           return;
+//       } System.out.println("9번을 누르면 주문하기");
+//           int orderNum = scanner.nextInt();
+//
+//           (orderNum ==9)
+//       }
+//
+//    }
 
 
 }

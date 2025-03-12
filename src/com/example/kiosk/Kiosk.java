@@ -9,8 +9,7 @@ public class Kiosk {
     Menu menu = new Menu();
 //    **리스트**
     // 전체 카테고리 --> 인덱스로 출력 완료 / 이걸로 메뉴리스트까지 출력하기
-    List<Menu> allCategory = new ArrayList<>();
-
+    List<Menu> menus = new ArrayList<>();
     // 장바구니
     List<String> cart = new ArrayList<>();
     int totalPrice = 0;
@@ -40,28 +39,60 @@ public class Kiosk {
         switch (selectCategoryNum) {
             case 1 :
                 menu.burgerMenu();
-                addMenu(menu.getBurgerItems());
+                addMenu(menu.getMenuItems("burger"));
                 break;
+
             case 2 :
                 menu.drinkMenu();
-                addMenu(menu.getDrinkItems());
+                addMenu(menu.getMenuItems("drinks"));
                 break;
+
             case 3 :
                 menu.dessertMenu();
-                addMenu(menu.getDessertItems());
+                addMenu(menu.getMenuItems("dessert"));
                 break;
+
             default:
                 System.out.println("잘못된 숫자입니다");
         }
     }
 
-//    **카테고리**
+
+//    ** 장바구니 담기, 결제 **
+    void addMenu (List<MenuItem> itemList) {
+       while(true) {
+           int selectMenuNum = scanner.nextInt();
+           scanner.nextLine();
+
+           if (selectMenuNum == 0) { // 뒤로가기
+               return;
+           }
+           for (MenuItem item : itemList) {
+               if (item.getMenuNum() == selectMenuNum) {
+                   cart.add(item.getName());
+                   totalPrice += (int)(item.getPrice())*1000;
+                   System.out.println("장바구니 : " + cart + " | 현재 금액 : " + totalPrice);
+                   break;
+               }
+           }
+           if(!cart.isEmpty()) {
+               System.out.println("9 . 주문하기");
+           }
+
+           if (selectMenuNum==9) {
+               System.out.println("주문완료");
+               System.exit(0);
+           }
+       }
+    }
+
+    //    **카테고리**
     //카테고리 출력 메서드
     public void printCategory () {
         makeCategory();
         System.out.println("[  MAIN MENU  ]");
-        for (Menu value : allCategory) {
-            System.out.println(" | 1 . " + value.getCategoryName() + " | ");
+        for (int i = 0; i < menus.size(); i++) {
+            System.out.println(" | "+(i+1) +" . " + menus.get(i).getCategoryName() + " | ");
         }
         System.out.println("메뉴를 선택해 주세요");
     }
@@ -71,43 +102,14 @@ public class Kiosk {
         Menu drinksmenu = new Menu("DRINKS");
         Menu dessertmenu = new Menu("DESSERT");
 
-        if(allCategory.isEmpty()) {
-            allCategory.add(burgermenu);
-            allCategory.add(drinksmenu);
-            allCategory.add(dessertmenu);
+        if(menus.isEmpty()) {
+            menus.add(burgermenu);
+            menus.add(drinksmenu);
+            menus.add(dessertmenu);
         }
     }
 
-//    ** 장바구니, 결제 **
-    void addMenu (List<MenuItem> itemList) {
-       while(true) {
-           int selectMenuNum = scanner.nextInt();
-           scanner.nextLine();
-
-           if (selectMenuNum == 0) { // 뒤로가기
-               return;
-           }
-
-           for (MenuItem item : itemList) {
-               if (item.getMenuNum() == selectMenuNum) {
-                   cart.add(item.getName());
-                   totalPrice += item.getPrice();
-                   System.out.println("장바구니 : " + cart + " | 현재 금액 : " + totalPrice);
-                   break;
-               }
-           }
-       }
     }
-//    void order (List<String> cart){
-//       if(cart.isEmpty()) {
-//           return;
-//       } System.out.println("9번을 누르면 주문하기");
-//           int orderNum = scanner.nextInt();
-//
-//           (orderNum ==9)
-//       }
-//
-//    }
 
 
-}
+

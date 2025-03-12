@@ -9,6 +9,7 @@ public class Main {
         //2. 장바구니 채우기
         while(true) {
             kiosk.selectOrderItem();
+
         }
 
     }

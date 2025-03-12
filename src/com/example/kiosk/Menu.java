@@ -9,14 +9,14 @@ public class Menu {
 
     // 속성
     String categoryName;
-
+    List<MenuItem> menuItems = new ArrayList<>();
     // 생성자
     Menu () {} // 메서드 사용을 위한 기본 생성자
     Menu (String categoryName) { // 카테고리 객체 생성을 위한 생성자
         this.categoryName = categoryName;
     }
 
-    // Menuitem 클래스 List로 관리
+//     Menuitem 클래스 List로 관리
     List<MenuItem> burgerItems = new ArrayList<>();
     List<MenuItem> drinkItems = new ArrayList<>();
     List<MenuItem> dessertItems = new ArrayList<>();

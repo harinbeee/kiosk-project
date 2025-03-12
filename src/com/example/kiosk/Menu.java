@@ -24,7 +24,7 @@ public class Menu {
 
     // 카테고리 별 메뉴 리스트 출력
     public void printItems() {
-        System.out.println("  ");
+        System.out.println("    ");
         System.out.println(categoryName +" Menu ᯓ⋆.˚");
         System.out.println("───────── ౨ৎ ────────────────── ౨ৎ ────────────────── ౨ৎ ─────────");
         for (MenuItem item : menuItems) {

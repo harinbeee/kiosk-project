@@ -53,7 +53,7 @@ public class Kiosk {
                return;
            }
            for (MenuItem item : itemList) {
-               if (item.getMenuNum() == selectMenuNum) {
+               if (item.getMenuNum() ==selectMenuNum) {
                    cart.add(item.getName());
                    totalPrice += (int)((item.getPrice())*1000);
                    System.out.println("\n   ");

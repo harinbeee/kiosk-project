@@ -8,24 +8,25 @@ public class Kiosk {
     Scanner scanner = new Scanner(System.in);
     Menu menu = new Menu();
 //    **리스트**
-    // 전체 카테고리 --> 인덱스로 출력 완료 / 이걸로 메뉴리스트까지 출력하기
+    // 전체 메뉴들
     List<Menu> menus = new ArrayList<>();
     // 장바구니
     List<String> cart = new ArrayList<>();
     int totalPrice = 0;
 
-
 // **키오스크 시작하기**
    void start (){
-       System.out.println("키오스크를 시작하려면 아무거나 입력하세요");
+       System.out.println("\n     ˚✧₊⁎  welcome  ⁎⁺˳✧˚   ");
+       System.out.println("─────────── ⋆⋅☆⋅⋆ ───────────");
+       System.out.println("    Press any key to begin   ");
        scanner.nextLine();
-       System.out.println("키오스크를 시작합니다");
-       menu.wholeItem();//<-- 전체아이템 넣어주기
+
+       initItem();//<-- 전체아이템 넣어주기
     }
 
 // **카테고리 선택- > 메뉴출력**
     void selectOrderItem () {
-        System.out.println("-----------------");
+
         printCategory();
 
         int selectCategoryNum = scanner.nextInt();
@@ -36,29 +37,13 @@ public class Kiosk {
             System.exit(0);
         }
 
-        switch (selectCategoryNum) {
-            case 1 :
-                menu.burgerMenu();
-                addMenu(menu.getMenuItems("burger"));
-                break;
+        Menu selectMenu = menus.get(selectCategoryNum-1);
+        selectMenu.printItems();
 
-            case 2 :
-                menu.drinkMenu();
-                addMenu(menu.getMenuItems("drinks"));
-                break;
-
-            case 3 :
-                menu.dessertMenu();
-                addMenu(menu.getMenuItems("dessert"));
-                break;
-
-            default:
-                System.out.println("잘못된 숫자입니다");
-        }
+        addMenu(selectMenu.getMenuItems());
     }
 
-
-//    ** 장바구니 담기, 결제 **
+//    ** 장바구니 담기, 주문하기 **
     void addMenu (List<MenuItem> itemList) {
        while(true) {
            int selectMenuNum = scanner.nextInt();
@@ -70,46 +55,72 @@ public class Kiosk {
            for (MenuItem item : itemList) {
                if (item.getMenuNum() == selectMenuNum) {
                    cart.add(item.getName());
-                   totalPrice += (int)(item.getPrice())*1000;
-                   System.out.println("장바구니 : " + cart + " | 현재 금액 : " + totalPrice);
+                   totalPrice += (int)((item.getPrice())*1000);
+                   System.out.println("\n   ");
+                   System.out.println(" 🛒 Your Cart : " + cart );
+                   System.out.println(" 🛒 Total Price : " + totalPrice +"원");
+                   System.out.println("───────── ౨ৎ ────────────────── ౨ৎ ────────────────── ౨ৎ ─────────");
                    break;
                }
            }
-           if(!cart.isEmpty()) {
-               System.out.println("9 . 주문하기");
+           if(!cart.isEmpty() && selectMenuNum != 9) {
+                     System.out.print("                            Press 9 to complete your order ━━━☞ ");
            }
 
            if (selectMenuNum==9) {
-               System.out.println("주문완료");
-               System.exit(0);
+               System.out.println("\n   ");
+               System.out.println(" 🌿 Paid : " + totalPrice +"  원");
+               System.out.println(" 🌿 Order Details : " + cart);
+               System.out.println("───────── ౨ৎ ────────────────── ౨ৎ ────────────────── ౨ৎ ─────────");
+               System.out.println("                    ⋆⁺₊⋆ ☾ ⋆⁺₊⋆ ☁\uFE0E  Thank you for your order!");
+               cart.clear();
            }
        }
     }
 
-    //    **카테고리**
+// **카테고리**
     //카테고리 출력 메서드
     public void printCategory () {
-        makeCategory();
-        System.out.println("[  MAIN MENU  ]");
+        System.out.println("\n╭────── · · ୨୧ · · ──────╮");
+        System.out.println("        Main Menu        ");
+        System.out.println(" ⠂⠄⠄⠂⠁⠁⠂⠄⠄⠂⠁⠁⠂⠄⠄⠂ ⠂⠄⠄⠂☆");
         for (int i = 0; i < menus.size(); i++) {
-            System.out.println(" | "+(i+1) +" . " + menus.get(i).getCategoryName() + " | ");
+            System.out.printf("    %-10s    %-2d  \n",  menus.get(i).getCategoryName(),(i+1));
         }
-        System.out.println("메뉴를 선택해 주세요");
-    }
-    //카테고리 리스트에 추가
-    public void makeCategory () {
-        Menu burgermenu = new Menu("BURGER");
-        Menu drinksmenu = new Menu("DRINKS");
-        Menu dessertmenu = new Menu("DESSERT");
-
-        if(menus.isEmpty()) {
-            menus.add(burgermenu);
-            menus.add(drinksmenu);
-            menus.add(dessertmenu);
-        }
+        System.out.println("    🔚 Exit       0        ");
+        System.out.println(" ⠂⠄⠄⠂⠁⠁⠂⠄⠄⠂⠁⠁⠂⠄⠄⠂ ⠂⠄⠄⠂☆");
+        System.out.println("╰────── · · ୨୧ · · ──────╯");
+        System.out.println("Thank you for visiting...");
+        System.out.print("      ⊹⁺⸜ Select your menu    ━━━☞  ");
     }
 
+    public void initItem() {
+        Menu coffeeMenu = new Menu ("☕️ Coffee");
+        coffeeMenu.addItem(new MenuItem(1,"Caffe Americano", 4.7, "에스프레소를 가장 부드럽게 느낄 수 있는 커피"));
+        coffeeMenu.addItem(new MenuItem(2,"Flat White", 5.8, "리스트레토 샷과 완벽한 스팀밀크 조화의 커피"));
+        coffeeMenu.addItem(new MenuItem(3,"Caffe latte", 5.2, "풍부한 에스크레소와 스팀밀크의 대표적인 커피"));
+        coffeeMenu.addItem(new MenuItem(4,"Caffe Mocha", 5.6, "진한 초콜릿 모카시럽과 크림으로 마무리한 커피"));
+        coffeeMenu.addItem(new MenuItem(5,"Cream Latte", 6.5, "달콤한 슈크림과 진한 에스프레소가 조화된 커피"));
+
+
+        Menu teaMenu = new Menu ("🫖 Tea");
+        teaMenu.addItem(new MenuItem(1,"Peach Black Tea", 4.0, "복숭아의 진한 맛과 홍차의 청량한 아이스 음료"));
+        teaMenu.addItem(new MenuItem(2,"Classic Milk Tea", 5.0, "진하게 우려낸 블랙티의 깊은 풍미와 우유의 조화"));
+        teaMenu.addItem(new MenuItem(3,"Earl Grey Tea", 4.5, "꽃향 가득한 라벤더와 베르가못 향이 진한 홍차"));
+        teaMenu.addItem(new MenuItem(4,"Chamomile Tea", 4.5, "캐모마일의 차분한 향으로 기분이 좋아지는 허브티"));
+
+        Menu dessertMenu = new Menu ("🍰 Dessert");
+        dessertMenu.addItem(new MenuItem(1,"Strawberry Cake", 7.3, "달콤한 초코시트와 딸기가 샌드된 클래식한 케이크"));
+        dessertMenu.addItem(new MenuItem(2,"Basque Cake", 7.0, "겉은 스모키하고 속은 크리미한 치즈 케이크"));
+        dessertMenu.addItem(new MenuItem(3,"Tiramisu Cake", 6.5, "마스카포네 치즈 크림과 커피시럽의 케이크"));
+
+        //카테고리별 리스트에 넣기
+        menus.add(coffeeMenu);
+        menus.add(teaMenu);
+        menus.add(dessertMenu);
+
     }
+}
 
 
 

@@ -29,14 +29,14 @@ public class Kiosk {
 
         printCategory();
 
-        int selectCategoryNum = inputInteger();
+        int selectCategoryNum = inputInteger(); // 문자열 예외처리
 
         if (selectCategoryNum==0) { // 종료
             System.out.println("주문을 종료합니다");
             System.exit(0);
         }
 
-        if (selectCategoryNum > menus.size()) { // 예외처리
+        if (selectCategoryNum > menus.size()) { // 범위 외 예외처리
             System.out.println("해당 카테고리는 존재하지 않습니다.");
             return;
         }
@@ -50,13 +50,13 @@ public class Kiosk {
 // ** 장바구니 담기, 주문하기 **
    private void addMenu (List<MenuItem> itemList) {
        while(true) {
-           int selectMenuNum = inputInteger();
+           int selectMenuNum = inputInteger(); // 문자열 예외처리
 
            if (selectMenuNum == 0) { // 뒤로가기
                return;
            }
 
-           if (selectMenuNum > itemList.size()) { // 예외처리
+           if (selectMenuNum > itemList.size()) { // 범위 외 예외처리
                System.out.println("해당 상품번호는 존재하지 않습니다.");
                return;
            }
@@ -96,8 +96,6 @@ public class Kiosk {
             }
         }
     }
-
-
 
 // **카테고리**
     //카테고리 출력 메서드

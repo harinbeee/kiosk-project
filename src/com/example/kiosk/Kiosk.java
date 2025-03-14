@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Kiosk {
     Scanner scanner = new Scanner(System.in);
     Menu menu = new Menu();
-//    **리스트**
+
     // 전체 메뉴들
     List<Menu> menus = new ArrayList<>();
     // 장바구니
@@ -15,7 +15,7 @@ public class Kiosk {
     int totalPrice = 0;
 
 // **키오스크 시작하기**
-   void start (){
+   public void start (){
        System.out.println("\n     ˚✧₊⁎  welcome  ⁎⁺˳✧˚   ");
        System.out.println("─────────── ⋆⋅☆⋅⋆ ───────────");
        System.out.println("    Press any key to begin   ");
@@ -25,7 +25,7 @@ public class Kiosk {
     }
 
 // **카테고리 선택- > 메뉴출력**
-    void selectOrderItem () {
+   public void selectOrderItem () {
 
         printCategory();
 
@@ -37,14 +37,19 @@ public class Kiosk {
             System.exit(0);
         }
 
+        if (selectCategoryNum > menus.size()) { // 예외처리
+            System.out.println("해당 카테고리는 존재하지 않습니다.");
+            return;
+        }
+
         Menu selectMenu = menus.get(selectCategoryNum-1);
         selectMenu.printItems();
 
         addMenu(selectMenu.getMenuItems());
     }
 
-//    ** 장바구니 담기, 주문하기 **
-    void addMenu (List<MenuItem> itemList) {
+// ** 장바구니 담기, 주문하기 **
+   private void addMenu (List<MenuItem> itemList) {
        while(true) {
            int selectMenuNum = scanner.nextInt();
            scanner.nextLine();
@@ -52,6 +57,12 @@ public class Kiosk {
            if (selectMenuNum == 0) { // 뒤로가기
                return;
            }
+
+           if (selectMenuNum > itemList.size()) { // 예외처리
+               System.out.println("해당 상품번호는 존재하지 않습니다.");
+               return;
+           }
+
            for (MenuItem item : itemList) {
                if (item.getMenuNum() ==selectMenuNum) {
                    cart.add(item.getName());
@@ -94,6 +105,7 @@ public class Kiosk {
         System.out.print("      ⊹⁺⸜ Select your menu    ━━━☞  ");
     }
 
+// **menuitem 객체**
     public void initItem() {
         Menu coffeeMenu = new Menu ("☕️ Coffee");
         coffeeMenu.addItem(new MenuItem(1,"Caffe Americano", 4.7, "에스프레소를 가장 부드럽게 느낄 수 있는 커피"));

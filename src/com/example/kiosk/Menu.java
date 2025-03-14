@@ -22,7 +22,7 @@ public class Menu {
         menuItems.add(item);
     }
 
-    // 카테고리 별 메뉴 리스트 출력
+//  카테고리 별 메뉴 리스트 출력
     public void printItems() {
         System.out.println("    ");
         System.out.println(categoryName +" Menu ᯓ⋆.˚");

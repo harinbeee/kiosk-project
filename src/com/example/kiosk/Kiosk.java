@@ -29,8 +29,7 @@ public class Kiosk {
 
         printCategory();
 
-        int selectCategoryNum = scanner.nextInt();
-        scanner.nextLine();
+        int selectCategoryNum = inputInteger();
 
         if (selectCategoryNum==0) { // 종료
             System.out.println("주문을 종료합니다");
@@ -51,8 +50,7 @@ public class Kiosk {
 // ** 장바구니 담기, 주문하기 **
    private void addMenu (List<MenuItem> itemList) {
        while(true) {
-           int selectMenuNum = scanner.nextInt();
-           scanner.nextLine();
+           int selectMenuNum = inputInteger();
 
            if (selectMenuNum == 0) { // 뒤로가기
                return;
@@ -88,6 +86,18 @@ public class Kiosk {
            }
        }
     }
+// **문자열 예외처리**
+    private int inputInteger () {
+        while(true) {
+            try {
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("숫자만 입력할 수 있습니다.");
+            }
+        }
+    }
+
+
 
 // **카테고리**
     //카테고리 출력 메서드

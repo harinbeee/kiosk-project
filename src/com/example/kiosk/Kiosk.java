@@ -56,7 +56,7 @@ public class Kiosk {
                return;
            }
 
-           if (selectMenuNum > itemList.size()) { // 범위 외 예외처리
+           if (selectMenuNum !=9 && selectMenuNum > itemList.size()) { // 범위 외 예외처리
                System.out.println("해당 상품번호는 존재하지 않습니다.");
                return;
            }
